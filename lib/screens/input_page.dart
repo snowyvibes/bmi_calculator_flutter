@@ -1,17 +1,7 @@
-import '/widgets/card.dart';
+import '../constants.dart';
+import '../widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-const double bottomContanierHeight = 70;
-
-const Color activeCardsColor = Color(0xFF1D1E33);
-
-const Color inactiveCardsColor = Color(0xFF111328);
-
-enum Gender {
-  male,
-  female,
-}
 
 class InputPage extends StatefulWidget {
   const InputPage({Key? key}) : super(key: key);
@@ -33,8 +23,11 @@ class _InputPageState extends State<InputPage> {
           });
   }
 
+  double defaultSliderVal = 170;
+
   bool maleCardActive = false;
   bool femaleCardActive = false;
+  double sliderVal = 170;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +42,7 @@ class _InputPageState extends State<InputPage> {
               ResusableCard(
                   colour:
                       maleCardActive ? activeCardsColor : inactiveCardsColor,
-                  onTap: () {
-                    updateColor(Gender.male);
-                  },
+                  onTap: () => updateColor(Gender.male),
                   child: iconContent(
                       context: context,
                       text: 'Male',
@@ -59,18 +50,33 @@ class _InputPageState extends State<InputPage> {
               ResusableCard(
                   colour:
                       femaleCardActive ? activeCardsColor : inactiveCardsColor,
-                  onTap: () {
-                    updateColor(Gender.female);
-                  },
+                  onTap: () => updateColor(Gender.female),
                   child: iconContent(
-                      context: context,
-                      text: 'Female',
-                      icon: FontAwesomeIcons.venus)),
+                    context: context,
+                    text: 'Female',
+                    icon: FontAwesomeIcons.venus,
+                  )),
             ],
           ),
         ),
         ResusableCard(
             child: iconContent(
+          columnItem: Column(
+            children: [
+              Text(sliderVal.toStringAsFixed(0) + ' cm',
+                  style: Theme.of(context).textTheme.headline4),
+              Slider(
+                  activeColor: accentColor,
+                  value: sliderVal,
+                  min: 20,
+                  max: 300,
+                  onChanged: (val) {
+                    setState(() {
+                      sliderVal = val;
+                    });
+                  }),
+            ],
+          ),
           context: context,
           text: 'Height',
         )),
@@ -79,6 +85,9 @@ class _InputPageState extends State<InputPage> {
             children: [
               ResusableCard(
                   child: iconContent(
+                columnItem: Column(
+                  children: [buildOutlineButton(icon: Icons.add, press: () {})],
+                ),
                 context: context,
                 text: 'Weight',
               )),
@@ -90,16 +99,13 @@ class _InputPageState extends State<InputPage> {
             ],
           ),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        kSizedBox,
         SizedBox(
           width: double.infinity,
           height: bottomContanierHeight,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom().copyWith(
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xFFEB1555)),
+              backgroundColor: MaterialStateProperty.all(accentColor),
             ),
             onPressed: () {},
             child: Text('Calculate'.toUpperCase()),

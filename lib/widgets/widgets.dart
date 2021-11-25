@@ -1,6 +1,7 @@
-import '/screens/input_page.dart';
+import '../constants.dart';
 import 'package:flutter/material.dart';
 
+// ignore: non_constant_identifier_names
 Expanded ResusableCard({
   required final Widget child,
   final Color? colour,
@@ -25,15 +26,28 @@ Column iconContent({
   required BuildContext context,
   required final String text,
   final IconData? icon,
+  final Widget? columnItem,
 }) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Icon(icon, size: 80),
-      const SizedBox(
-        height: 10,
-      ),
+      icon == null ? const SizedBox() : Icon(icon, size: 80),
+      kSizedBox,
       Text(text.toUpperCase(), style: Theme.of(context).textTheme.bodyText1),
+      kSizedBox,
+      columnItem ?? const SizedBox(),
     ],
+  );
+}
+
+SizedBox buildOutlineButton({required IconData icon, required Function press}) {
+  return SizedBox(
+    width: 40,
+    height: 32,
+    child: OutlinedButton(
+      style: OutlinedButton.styleFrom().copyWith(),
+      onPressed: () => press(),
+      child: Icon(icon),
+    ),
   );
 }
