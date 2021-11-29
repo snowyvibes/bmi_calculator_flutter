@@ -64,29 +64,14 @@ class Button extends StatelessWidget {
   }
 }
 
-// SizedBox buildOutlineButton({required IconData icon, required Function press}) {
-//   return SizedBox(
-//     height: 60,
-//     child: FloatingActionButton(
-//       onPressed: () => press(),
-//       backgroundColor: const Color(0xFF4C4F5E),
-//       child: Icon(
-//         icon,
-//         color: Colors.white,
-//         size: 30,
-//       ),
-//     ),
-//   );
-// }
-
 //Calculate Button
 
 class CalculateButton extends StatelessWidget {
-  CalculateButton({Key? key, required this.onPressed, required this.text})
+  const CalculateButton({Key? key, required this.onPressed, required this.text})
       : super(key: key);
 
   final String text;
-  void Function() onPressed;
+  final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

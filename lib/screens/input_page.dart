@@ -94,9 +94,7 @@ class _InputPageState extends State<InputPage> {
                   min: 20,
                   max: 300,
                   onChanged: (val) {
-                    setState(() {
-                      sliderVal = val;
-                    });
+                    setState(() => sliderVal = val);
                   }),
             ],
           ),
@@ -116,22 +114,14 @@ class _InputPageState extends State<InputPage> {
                       children: [
                         Button(
                             icon: Icons.add,
-                            onPressed: () {
-                              setState(() {
-                                weight++;
-                              });
-                            }),
+                            onPressed: () => setState(() => weight++)),
                         const SizedBox(
                           width: 10,
                         ),
                         Button(
                             icon: Icons.remove,
                             onPressed: () {
-                              if (weight != 0) {
-                                setState(() {
-                                  weight--;
-                                });
-                              }
+                              if (weight != 0) setState(() => weight--);
                             }),
                       ],
                     ),
@@ -152,22 +142,14 @@ class _InputPageState extends State<InputPage> {
                       children: [
                         Button(
                             icon: Icons.add,
-                            onPressed: () {
-                              setState(() {
-                                age++;
-                              });
-                            }),
+                            onPressed: () => setState(() => age++)),
                         const SizedBox(
                           width: 10,
                         ),
                         Button(
                             icon: Icons.remove,
                             onPressed: () {
-                              if (age != 0) {
-                                setState(() {
-                                  age--;
-                                });
-                              }
+                              if (age != 0) setState(() => age--);
                             }),
                       ],
                     ),
@@ -183,12 +165,8 @@ class _InputPageState extends State<InputPage> {
         CalculateButton(
           text: 'Calculate',
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Result(
-                          result: bmi(),
-                        )));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Result(result: bmi())));
           },
         )
       ]),
