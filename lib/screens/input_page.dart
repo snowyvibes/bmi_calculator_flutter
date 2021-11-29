@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/calculator_brain.dart';
 import 'package:bmi_calculator/screens/result_page.dart';
 
 import '../constants.dart';
@@ -25,27 +26,12 @@ class _InputPageState extends State<InputPage> {
           });
   }
 
-  double defaultSliderVal = 170;
-
   bool maleCardActive = true;
   bool femaleCardActive = false;
 
-  double sliderVal = 170;
+  int height = 170;
   int age = 20;
-  double weight = 50;
-
-  double get heightInMeters {
-    return sliderVal / 100;
-  }
-
-  double get height {
-    return heightInMeters * heightInMeters;
-  }
-
-  double bmi() {
-    final double bmi = weight / height;
-    return bmi;
-  }
+  int weight = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -83,18 +69,23 @@ class _InputPageState extends State<InputPage> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
                 children: [
-                  Text(sliderVal.toStringAsFixed(0), style: headline4),
-                  const Text('cm')
+                  Text(height.toStringAsFixed(0), style: headline4),
+                  const Text(
+                    'cm',
+                    style: kLabelTextStyle,
+                  )
                 ],
               ),
               Slider(
                   activeColor: accentColor,
-                  value: sliderVal,
+                  value: height.toDouble(),
                   min: 20,
                   max: 300,
                   onChanged: (val) {
-                    setState(() => sliderVal = val);
+                    setState(() => height = val.toInt());
                   }),
             ],
           ),
@@ -112,13 +103,13 @@ class _InputPageState extends State<InputPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Button(
+                        RoundButton(
                             icon: Icons.add,
                             onPressed: () => setState(() => weight++)),
                         const SizedBox(
                           width: 10,
                         ),
-                        Button(
+                        RoundButton(
                             icon: Icons.remove,
                             onPressed: () {
                               if (weight != 0) setState(() => weight--);
@@ -140,13 +131,13 @@ class _InputPageState extends State<InputPage> {
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
                       children: [
-                        Button(
+                        RoundButton(
                             icon: Icons.add,
                             onPressed: () => setState(() => age++)),
                         const SizedBox(
                           width: 10,
                         ),
-                        Button(
+                        RoundButton(
                             icon: Icons.remove,
                             onPressed: () {
                               if (age != 0) setState(() => age--);
@@ -162,11 +153,20 @@ class _InputPageState extends State<InputPage> {
           ),
         ),
         kSizedBox,
-        CalculateButton(
+        PinkButton(
           text: 'Calculate',
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Result(result: bmi())));
+            CalculatorBrain calculatorBraian =
+                CalculatorBrain(height: height, weight: weight);
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Result(
+                          result: calculatorBraian.calculateBMI,
+                          interpretation: calculatorBraian.interpretation(),
+                          state: calculatorBraian.stateText(),
+                        )));
           },
         )
       ]),

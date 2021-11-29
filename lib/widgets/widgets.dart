@@ -6,20 +6,22 @@ Expanded ResusableCard({
   required final Widget child,
   final Color? colour,
   void Function()? onTap,
+  int? flex,
 }) {
   return Expanded(
+      flex: flex ?? 1,
       child: GestureDetector(
-    onTap: onTap,
-    child: Container(
-      width: double.infinity,
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: colour ?? activeCardsColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: child,
-    ),
-  ));
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: colour ?? activeCardsColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: child,
+        ),
+      ));
 }
 
 Column iconContent({
@@ -33,15 +35,15 @@ Column iconContent({
     children: [
       icon == null ? const SizedBox() : Icon(icon, size: 80),
       kSizedBox,
-      Text(text.toUpperCase(), style: Theme.of(context).textTheme.bodyText1),
+      Text(text.toUpperCase(), style: kLabelTextStyle),
       kSizedBox,
       columnItem ?? const SizedBox(),
     ],
   );
 }
 
-class Button extends StatelessWidget {
-  const Button({Key? key, required this.onPressed, required this.icon})
+class RoundButton extends StatelessWidget {
+  const RoundButton({Key? key, required this.onPressed, required this.icon})
       : super(key: key);
 
   final IconData icon;
@@ -66,8 +68,8 @@ class Button extends StatelessWidget {
 
 //Calculate Button
 
-class CalculateButton extends StatelessWidget {
-  const CalculateButton({Key? key, required this.onPressed, required this.text})
+class PinkButton extends StatelessWidget {
+  const PinkButton({Key? key, required this.onPressed, required this.text})
       : super(key: key);
 
   final String text;
