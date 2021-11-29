@@ -1,3 +1,5 @@
+import 'package:bmi_calculator/screens/result_page.dart';
+
 import '../constants.dart';
 import '../widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +27,25 @@ class _InputPageState extends State<InputPage> {
 
   double defaultSliderVal = 170;
 
-  bool maleCardActive = false;
+  bool maleCardActive = true;
   bool femaleCardActive = false;
+
   double sliderVal = 170;
+  int age = 20;
+  double weight = 50;
+
+  double get heightInMeters {
+    return sliderVal / 100;
+  }
+
+  double get height {
+    return heightInMeters * heightInMeters;
+  }
+
+  double bmi() {
+    final double bmi = weight / height;
+    return bmi;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +81,13 @@ class _InputPageState extends State<InputPage> {
             child: iconContent(
           columnItem: Column(
             children: [
-              Text(sliderVal.toStringAsFixed(0) + ' cm',
-                  style: Theme.of(context).textTheme.headline4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(sliderVal.toStringAsFixed(0), style: headline4),
+                  const Text('cm')
+                ],
+              ),
               Slider(
                   activeColor: accentColor,
                   value: sliderVal,
@@ -86,13 +109,70 @@ class _InputPageState extends State<InputPage> {
               ResusableCard(
                   child: iconContent(
                 columnItem: Column(
-                  children: [buildOutlineButton(icon: Icons.add, press: () {})],
+                  children: [
+                    Text(weight.toStringAsFixed(0), style: headline4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Button(
+                            icon: Icons.add,
+                            onPressed: () {
+                              setState(() {
+                                weight++;
+                              });
+                            }),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Button(
+                            icon: Icons.remove,
+                            onPressed: () {
+                              if (weight != 0) {
+                                setState(() {
+                                  weight--;
+                                });
+                              }
+                            }),
+                      ],
+                    ),
+                  ],
                 ),
                 context: context,
                 text: 'Weight',
               )),
               ResusableCard(
                   child: iconContent(
+                columnItem: Column(
+                  children: [
+                    Text(age.toStringAsFixed(0), style: headline4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Button(
+                            icon: Icons.add,
+                            onPressed: () {
+                              setState(() {
+                                age++;
+                              });
+                            }),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Button(
+                            icon: Icons.remove,
+                            onPressed: () {
+                              if (age != 0) {
+                                setState(() {
+                                  age--;
+                                });
+                              }
+                            }),
+                      ],
+                    ),
+                  ],
+                ),
                 context: context,
                 text: 'Age',
               )),
@@ -100,16 +180,16 @@ class _InputPageState extends State<InputPage> {
           ),
         ),
         kSizedBox,
-        SizedBox(
-          width: double.infinity,
-          height: bottomContanierHeight,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom().copyWith(
-              backgroundColor: MaterialStateProperty.all(accentColor),
-            ),
-            onPressed: () {},
-            child: Text('Calculate'.toUpperCase()),
-          ),
+        CalculateButton(
+          text: 'Calculate',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Result(
+                          result: bmi(),
+                        )));
+          },
         )
       ]),
     );

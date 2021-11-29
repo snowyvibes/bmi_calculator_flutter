@@ -10,8 +10,8 @@ const bodyText1 = TextStyle(
 );
 
 const headline4 = TextStyle(
-  fontSize: 30,
-  fontWeight: FontWeight.bold,
+  fontSize: 40,
+  fontWeight: FontWeight.w900,
 );
 
 const double bottomContanierHeight = 70;
@@ -22,7 +22,4 @@ const Color activeCardsColor = Color(0xFF1D1E33);
 
 const Color inactiveCardsColor = Color(0xFF111328);
 
-enum Gender {
-  male,
-  female,
-}
+enum Gender { male, female }

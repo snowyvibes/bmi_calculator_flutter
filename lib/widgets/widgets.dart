@@ -40,14 +40,65 @@ Column iconContent({
   );
 }
 
-SizedBox buildOutlineButton({required IconData icon, required Function press}) {
-  return SizedBox(
-    width: 40,
-    height: 32,
-    child: OutlinedButton(
-      style: OutlinedButton.styleFrom().copyWith(),
-      onPressed: () => press(),
-      child: Icon(icon),
-    ),
-  );
+class Button extends StatelessWidget {
+  const Button({Key? key, required this.onPressed, required this.icon})
+      : super(key: key);
+
+  final IconData icon;
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      elevation: 6,
+      constraints: const BoxConstraints.tightFor(width: 56, height: 56),
+      child: Icon(
+        icon,
+        color: Colors.white,
+        size: 30,
+      ),
+      fillColor: const Color(0xFF4C4F5E),
+      shape: const CircleBorder(),
+    );
+  }
+}
+
+// SizedBox buildOutlineButton({required IconData icon, required Function press}) {
+//   return SizedBox(
+//     height: 60,
+//     child: FloatingActionButton(
+//       onPressed: () => press(),
+//       backgroundColor: const Color(0xFF4C4F5E),
+//       child: Icon(
+//         icon,
+//         color: Colors.white,
+//         size: 30,
+//       ),
+//     ),
+//   );
+// }
+
+//Calculate Button
+
+class CalculateButton extends StatelessWidget {
+  CalculateButton({Key? key, required this.onPressed, required this.text})
+      : super(key: key);
+
+  final String text;
+  void Function() onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: bottomContanierHeight,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom().copyWith(
+          backgroundColor: MaterialStateProperty.all(accentColor),
+        ),
+        onPressed: onPressed,
+        child: Text(text.toUpperCase()),
+      ),
+    );
+  }
 }
