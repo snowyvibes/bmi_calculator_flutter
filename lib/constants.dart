@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget kSizedBox = const SizedBox(
-  height: 10,
-);
-
-const bodyText1 = TextStyle(
-  fontSize: 18,
-  color: accentColor,
-);
-
-const headline4 = TextStyle(
-  fontSize: 40,
-  fontWeight: FontWeight.w900,
-);
+Widget kSizedBox = const SizedBox();
 
 const TextStyle kLabelTextStyle = TextStyle(
-  fontSize: 18,
+  fontWeight: FontWeight.bold,
+  fontSize: 16,
   color: Color(0xFF8D8E98),
 );
 
