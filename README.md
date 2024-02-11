@@ -1,7 +1,7 @@
 # Modern BMI Calculator for Flutter
 
-![Screenshot of the app's main screen](/assets/main_screen.png)
-![Screenshot of the app's result screen](/assets/result_screen.png)
+![Screenshot of the app's main screen](/assets/main_screen.png){:height="300px" width="150px"}
+![Screenshot of the app's result screen](/assets/result_screen.png){:height="300px" width="150px"}
 
 A beautifully designed and user-friendly BMI calculator built with Flutter to provide an accurate and enjoyable experience.
 
